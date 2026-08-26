@@ -19,13 +19,12 @@
   body{margin:0;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--body);line-height:1.6}
   a{color:var(--terra);text-decoration:none}
   a:hover{color:var(--terra-dk);text-decoration:underline}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(32px,6vw,84px)}
   .serif{font-family:'Fraunces',Georgia,serif}
 
   header{background:var(--navy);color:#fff}
   .nav{display:flex;align-items:center;gap:24px;padding:22px 0;flex-wrap:wrap}
-  .logo{font-size:21px;font-weight:700;letter-spacing:-.3px;color:#fff}
-  .logo span{color:var(--pink)}
+  .logo{font-size:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff}
   .nav .links{margin-left:auto;display:flex;gap:26px;font-size:14px;font-weight:500;flex-wrap:wrap}
   .nav .links a{color:rgba(255,255,255,.75)}
   .nav .links a:hover{color:#fff;text-decoration:none}
@@ -103,7 +102,7 @@
   footer b{color:var(--ink)}
 
   @media(max-width:900px){
-    .wrap{padding:0 22px}
+    .wrap{padding:0 24px}
     h1{font-size:36px}
     .hero{flex-direction:column;gap:44px;padding-top:48px;padding-bottom:60px}
     .cards{grid-template-columns:1fr}
@@ -118,7 +117,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="logo">Your<span>STRL</span></div>
+    <div class="logo">YourSTRL</div>
     <nav class="links">
       <a href="#how">How it works</a>
       <a href="#companies">For managers</a>
