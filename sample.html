@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Dashboard — YourSTRL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --gov:#2C313C;
+    --accent:#C05D4F;
+    --accent-soft:#F6E9E6;
+    --good:#2F6B36;
+    --good-bg:#EAF3EA;
+    --warn:#a36a00;
+    --warn-bg:#fdf3e0;
+    --serious:#b23b3b;
+    --serious-bg:#fbeaea;
+    --ink:#2C313C;
+    --ink-2:#3C4655;
+    --muted:#8A8F98;
+    --line:#DDD5CE;
+    --bg:#EDE9E6;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* top bar */
+  .top{background:var(--gov);color:#fff;border-bottom:4px solid var(--accent)}
+  .top-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px}
+  .seal{width:40px;height:40px;border:2px solid rgba(255,255,255,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:1px;flex:0 0 auto}
+  .prod{font-size:17px;font-weight:700}
+  .prod small{display:block;font-size:12px;font-weight:400;opacity:.8}
+  .org{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:14px}
+  .org .badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-weight:600}
+  .demo-tag{position:fixed;right:14px;bottom:14px;background:var(--gov);color:#fff;font-size:11px;letter-spacing:1px;padding:6px 12px;border-radius:999px;opacity:.85;z-index:50}
+
+  main{max-width:1180px;margin:0 auto;padding:26px 24px 60px}
+  h1{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 22px}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tile .lbl{font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .tile .num{font-size:28px;font-weight:800;letter-spacing:-.5px}
+  .tile .ctx{font-size:12px;color:var(--muted);margin-top:2px}
+  .tile.ok .num::after{content:" ✓";color:var(--good);font-size:18px;font-weight:700}
+
+  /* upload */
+  .bulk{margin-bottom:14px}
+  .bulk .zones{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .zone-step{font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .zone-step b{color:var(--accent)}
+  .zone-done{margin-top:10px;font-size:13px;color:var(--good);font-weight:600;display:none}
+  .zone-done.show{display:block}
+  .zone-done small{display:block;color:var(--ink-2);font-weight:400}
+  .tmpl{font-size:12px;color:var(--muted);margin-top:8px}
+  .genrow{margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .gen{background:var(--gov);color:#fff;font-weight:700;font-size:14px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;opacity:.45}
+  .gen.ready{opacity:1}
+  .gen-done{display:none;font-size:14px;color:var(--good);font-weight:600}
+  .gen-done.show{display:block}
+  .gen-done a{margin-left:8px}
+  .grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h2{font-size:15px;margin:0 0 12px}
+  .drop{border:2px dashed #D9C9C2;border-radius:10px;padding:26px;text-align:center;color:var(--muted);font-size:14px;transition:background .15s,border-color .15s;cursor:pointer}
+  .drop.over{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .drop strong{color:var(--ink-2)}
+  .drop .ico{font-size:26px;display:block;margin-bottom:6px}
+  .browse{display:inline-block;margin-top:10px;background:var(--accent);color:#fff;font-weight:600;font-size:13px;border:none;border-radius:999px;padding:9px 18px;cursor:pointer}
+  #file-in{display:none}
+  .match{margin-top:14px;display:none;border-radius:10px;padding:14px 16px;font-size:14px}
+  .match.show{display:flex;gap:10px;align-items:flex-start}
+  .match.good{background:var(--good-bg);border:1px solid #CBE0CC;color:var(--good)}
+  .match .tick{width:22px;height:22px;background:var(--good);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto;margin-top:1px}
+  .match b{color:var(--ink)}
+  .match small{display:block;color:var(--ink-2);font-weight:400}
+  .steps{font-size:13px;color:var(--ink-2);margin:0;padding-left:18px}
+  .steps li{margin-bottom:8px}
+  .steps b{color:var(--ink)}
+
+  /* renewal */
+  .renew .row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);padding:7px 0;border-bottom:1px solid var(--line)}
+  .renew .row:last-child{border-bottom:0}
+  .renew .row b{color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px}
+  .pill.active{background:var(--good-bg);color:var(--good)}
+  .pill.active::before{content:"✓"}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.warn::before{content:"⏱"}
+
+  /* table */
+  .tablebar{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .tablebar h2{font-size:15px;margin:0}
+  .tablebar input{margin-left:auto;font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;width:260px;background:var(--card)}
+  .count{font-size:12px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  thead th{text-align:left;font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--accent);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line);background:#FBF9F7}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:#F7F3F0}
+  td .unit{font-weight:600}
+  td .addr{font-size:12px;color:var(--muted)}
+  td.lic{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .links a{margin-right:10px;font-size:13px;white-space:nowrap}
+  .wrap-note{font-size:12px;color:var(--muted);margin-top:10px}
+
+  @media(max-width:860px){
+    .tiles{grid-template-columns:repeat(2,1fr)}
+    .grid2{grid-template-columns:1fr}
+    .tablebar input{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="prod">Your<span style="color:#E7C5C2">STRL</span> Partner Portal<small>STR License Manager</small></div>
+    <div class="org">
+      <span class="badge">Alpine Peak Properties · Sample</span>
+      <a href="login.html" style="font-size:13px;font-weight:600;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 16px;text-decoration:none">Partner sign-in</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1>License Portfolio <span style="font-size:13px;font-weight:600;color:var(--accent);vertical-align:middle;font-family:Inter,sans-serif">SAMPLE</span></h1>
+  <p class="sub">A sample portfolio with fictional data. Every active unit, its official STR license, and its public verification page — kept current in one place. Partners see their own portfolio after sign-in.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="lbl">Active Units</div><div class="num" id="t-units">—</div><div class="ctx">in portfolio</div></div>
+    <div class="tile ok"><div class="lbl">Licenses on File</div><div class="num" id="t-lic">—</div><div class="ctx">official PDFs verified</div></div>
+    <div class="tile ok"><div class="lbl">Compliance</div><div class="num">100%</div><div class="ctx">all units publicly verifiable</div></div>
+    <div class="tile"><div class="lbl">Renewal Deadline</div><div class="num" id="t-days">—</div><div class="ctx">days · licenses expire Feb 28, 2027</div></div>
+  </div>
+
+  <section class="card bulk">
+    <h2>Bulk Onboarding — Bring Your Whole Portfolio</h2>
+    <div class="zones">
+      <div>
+        <div class="zone-step"><b>Step 1</b> · Property spreadsheet</div>
+        <div class="drop" id="drop-xl">
+          <span class="ico">📊</span>
+          Drop your Excel or CSV with <strong>property name, license #, and address</strong>
+          <br><button class="browse" type="button" onclick="document.getElementById('xl-in').click()">Choose Spreadsheet</button>
+          <input type="file" id="xl-in" accept=".xlsx,.xls,.csv" style="display:none">
+        </div>
+        <div class="zone-done" id="xl-done"></div>
+        <div class="tmpl"><a href="data:text/csv;charset=utf-8,Property%20Name,License%20Number,Address,Expires%0A" download="str-portfolio-template.csv">Download the template (.csv)</a> — three columns is all we need.</div>
+      </div>
+      <div>
+        <div class="zone-step"><b>Step 2</b> · License PDFs</div>
+        <div class="drop" id="drop-bulk">
+          <span class="ico">🗂</span>
+          Drop <strong>all your license PDFs at once</strong> — exactly as downloaded, any filenames
+          <br><button class="browse" type="button" onclick="document.getElementById('bulk-in').click()">Choose PDFs</button>
+          <input type="file" id="bulk-in" accept="application/pdf" multiple style="display:none">
+        </div>
+        <div class="zone-done" id="bulk-done"></div>
+        <div class="tmpl">Each PDF is matched to its unit by the license number printed on the document.</div>
+      </div>
+    </div>
+    <div class="genrow">
+      <button class="gen" id="gen" type="button">Generate QR Presentation Cards</button>
+      <span class="gen-done" id="gen-done">✓ <b id="gen-count"></b> QR presentation cards ready — print-ready 4×6 door cards for every unit.<a href="https://strlicenses.github.io/licenses/label.html?id=coldstream-townhome-15" target="_blank" rel="noopener">See a sample card</a></span>
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Upload a Single License</h2>
+      <div class="drop" id="drop">
+        <span class="ico">⇪</span>
+        Drag &amp; drop the PDF straight from the MuniRevs download<br>
+        <strong>We read the license number and match it to the right unit automatically</strong>
+        <br><button class="browse" type="button" onclick="document.getElementById('file-in').click()">Choose PDF</button>
+        <input type="file" id="file-in" accept="application/pdf" multiple>
+      </div>
+      <div class="match good" id="match">
+        <div class="tick">✓</div>
+        <div id="match-txt"></div>
+      </div>
+    </section>
+
+    <section class="card renew">
+      <h2>How It Works</h2>
+      <ol class="steps">
+        <li><b>Upload</b> — drop each license PDF as downloaded; no renaming, no filing.</li>
+        <li><b>Auto-match</b> — the license number on the document is matched to the unit.</li>
+        <li><b>Publish</b> — the unit's public verification page and QR label update instantly.</li>
+      </ol>
+            <div class="row"><span>All licenses expire</span><b>Feb 28, 2027</b></div>
+      <div class="row"><span>Auto-reminders</span><b>90 / 30 / 7 days</b></div>
+    </section>
+  </div>
+
+  <div class="tablebar">
+    <h2>Units</h2>
+    <span class="count" id="count"></span>
+    <input type="search" id="q" placeholder="Search unit, address, or license #…">
+  </div>
+  <table>
+    <thead><tr>
+      <th>Unit</th><th>License #</th><th>Expires</th><th>Status</th><th>Public Links</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="wrap-note">In a real portfolio, each row links to the unit's live public verification page, official license PDF, and print-ready QR door card. <a href="https://strlicenses.github.io/licenses/verify.html?id=coldstream-townhome-15" target="_blank" rel="noopener">See a live verification page</a>.</p>
+</main>
+
+<div class="demo-tag">SAMPLE DASHBOARD · FICTIONAL DATA</div>
+
+<script>
+const SITE = 'https://strlicenses.github.io/licenses/';
+const UNITS = [{"slug": "sample", "name": "Riverbend Chalet", "lic": "STL-DEMO-01", "addr": "742 Riverbend Lane, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Summit View 201", "lic": "STL-DEMO-02", "addr": "18 Summit View Drive #201, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Aspen Grove B4", "lic": "STL-DEMO-03", "addr": "305 Aspen Grove Court #B4, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Timberline Lodge 12", "lic": "STL-DEMO-04", "addr": "1290 Timberline Road #12, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Creekside Cottage", "lic": "STL-DEMO-05", "addr": "56 Creekside Way, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Powder Ridge 7", "lic": "STL-DEMO-06", "addr": "880 Powder Ridge Circle #7, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Elk Meadow House", "lic": "STL-DEMO-07", "addr": "2140 Elk Meadow Drive, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Stonebridge 3C", "lic": "STL-DEMO-08", "addr": "410 Stonebridge Road #3C, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Larkspur Loft", "lic": "STL-DEMO-09", "addr": "77 Larkspur Street #2, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sample", "name": "Juniper Hill A", "lic": "STL-DEMO-10", "addr": "1615 Juniper Hill Lane #A, Anytown, CO", "exp": "February 28, 2027", "status": "Active"}];
+
+/* stat tiles */
+document.getElementById('t-units').textContent = UNITS.length;
+document.getElementById('t-lic').textContent = UNITS.length;
+const days = Math.max(0, Math.round((new Date('2027-02-28') - new Date()) / 864e5));
+document.getElementById('t-days').textContent = days;
+
+/* table */
+const rows = document.getElementById('rows');
+function esc(s){const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function render(list){
+  rows.innerHTML = list.map(u => `
+    <tr>
+      <td><div class="unit">${esc(u.name)}</div><div class="addr">${esc(u.addr)}</div></td>
+      <td class="lic">${esc(u.lic)}</td>
+      <td>${esc(u.exp)}</td>
+      <td><span class="pill active">${esc(u.status)}</span></td>
+      <td class="links" style="color:var(--muted)">
+        <span title="Disabled in the sample">Verify page · License PDF · QR label</span>
+      </td>
+    </tr>`).join('');
+  document.getElementById('count').textContent = list.length + ' of ' + UNITS.length;
+}
+render(UNITS);
+
+document.getElementById('q').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  render(!q ? UNITS : UNITS.filter(u =>
+    (u.name + ' ' + u.addr + ' ' + u.lic).toLowerCase().includes(q)));
+});
+
+/* upload demo — client-side simulation, nothing leaves the browser */
+const drop = document.getElementById('drop');
+const matchBox = document.getElementById('match');
+const matchTxt = document.getElementById('match-txt');
+let demoIdx = 0;
+function simulateUpload(fileName){
+  const u = UNITS[demoIdx % UNITS.length]; demoIdx++;
+  matchTxt.innerHTML = '<b>' + esc(fileName || 'print-license.pdf') + '</b> matched to <b>' + esc(u.name) +
+    '</b> · ' + esc(u.lic) +
+    '<small>Renamed to ' + esc(u.slug) + '.pdf — verification page &amp; QR label updated.</small>';
+  matchBox.classList.add('show');
+}
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.remove('over');}));
+drop.addEventListener('drop', e => {
+  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  simulateUpload(f ? f.name : null);
+});
+document.getElementById('file-in').addEventListener('change', e => {
+  simulateUpload(e.target.files[0] ? e.target.files[0].name : null);
+  e.target.value = '';
+});
+
+/* bulk onboarding demo — client-side simulation */
+const bulkState = {sheet:false, pdfs:0};
+const gen = document.getElementById('gen');
+function wireDrop(zoneId, inputId, handler){
+  const z = document.getElementById(zoneId), inp = document.getElementById(inputId);
+  ['dragenter','dragover'].forEach(ev => z.addEventListener(ev, e => {e.preventDefault(); z.classList.add('over');}));
+  ['dragleave','drop'].forEach(ev => z.addEventListener(ev, e => {e.preventDefault(); z.classList.remove('over');}));
+  z.addEventListener('drop', e => handler(e.dataTransfer ? e.dataTransfer.files : []));
+  inp.addEventListener('change', e => {handler(e.target.files); e.target.value='';});
+}
+function refreshGen(){ gen.classList.toggle('ready', bulkState.sheet && bulkState.pdfs > 0); }
+wireDrop('drop-xl','xl-in', files => {
+  const name = files[0] ? files[0].name : 'portfolio.xlsx';
+  bulkState.sheet = true;
+  const d = document.getElementById('xl-done');
+  d.innerHTML = '✓ ' + esc(name) + ' — <b>' + UNITS.length + ' properties imported</b><small>Names, license numbers, and addresses read from the sheet.</small>';
+  d.classList.add('show'); refreshGen();
+});
+wireDrop('drop-bulk','bulk-in', files => {
+  const n = files.length || UNITS.length;
+  bulkState.pdfs = n;
+  const d = document.getElementById('bulk-done');
+  d.innerHTML = '✓ <b>' + n + ' license PDF' + (n===1?'':'s') + ' received</b> — matched to units by license number<small>No renaming needed; unmatched documents are flagged for review.</small>';
+  d.classList.add('show'); refreshGen();
+});
+gen.addEventListener('click', () => {
+  if(!gen.classList.contains('ready')) return;
+  document.getElementById('gen-count').textContent = UNITS.length;
+  document.getElementById('gen-done').classList.add('show');
+});
+</script>
+</body>
+</html>

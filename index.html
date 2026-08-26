@@ -141,11 +141,11 @@
     <div class="doorcard">
       <div class="dc">
         <div class="dc-head">
-          <div class="juris">Town of Vail, Colorado</div>
+          <div class="juris">Your Town, Colorado</div>
           <div class="cap">Short-Term Rental License</div>
         </div>
         <div class="dc-body">
-          <div class="unit">Village Center 1G</div>
+          <div class="unit">Alpine Creek 4B</div>
           <div class="scan">Scan to Verify License</div>
           <svg width="146" height="146" viewBox="0 0 29 29">
             <rect x="0" y="0" width="7" height="7" fill="none" stroke="#2C313C" stroke-width="2"/><rect x="2.5" y="2.5" width="2" height="2" fill="#2C313C"/>
@@ -160,9 +160,9 @@
             <rect x="22" y="10" width="2" height="2" fill="#2C313C"/><rect x="25" y="12" width="2" height="2" fill="#2C313C"/><rect x="23" y="15" width="2" height="2" fill="#2C313C"/><rect x="26" y="17" width="2" height="2" fill="#2C313C"/>
             <rect x="10" y="22" width="2" height="2" fill="#2C313C"/><rect x="13" y="24" width="2" height="2" fill="#2C313C"/><rect x="16" y="22" width="2" height="2" fill="#2C313C"/><rect x="19" y="25" width="2" height="2" fill="#2C313C"/><rect x="22" y="23" width="3" height="2" fill="#2C313C"/><rect x="26" y="26" width="2" height="2" fill="#2C313C"/><rect x="11" y="27" width="2" height="2" fill="#2C313C"/><rect x="23" y="27" width="2" height="2" fill="#2C313C"/>
           </svg>
-          <div class="dc-lic">License No. <b>032192</b> <span class="pill">● ACTIVE</span></div>
+          <div class="dc-lic">License No. <b>STL-00000</b> <span class="pill">● ACTIVE</span></div>
         </div>
-        <div class="dc-foot">Managed by rentVAIL · rentvail.com</div>
+        <div class="dc-foot">Managed by Your Company · yourcompany.com</div>
       </div>
     </div>
   </div>
@@ -170,7 +170,7 @@
 
 <div class="stats">
   <div class="wrap row">
-    <div class="stat"><span class="n">62</span><span class="l">units live in Vail today</span></div>
+    <div class="stat"><span class="n">1</span><span class="l">card per door, posted once</span></div>
     <div class="stat mid"><span class="n">2 sec</span><span class="l">from scan to verified license</span></div>
     <div class="stat"><span class="n serif" style="color:var(--slate)">0</span><span class="l">placards reprinted, ever again</span></div>
   </div>
@@ -208,7 +208,10 @@
         <li><b>Renewal is one upload</b> — drop the new PDF and the public page updates instantly.</li>
         <li><b>Print-ready door cards</b> — generated for every unit, posted once.</li>
       </ul>
-      <a class="btn btn-navy" href="login.html">Partner Sign-in</a>
+      <div class="cta-row">
+        <a class="btn btn-navy" href="login.html">Partner Sign-in</a>
+        <a class="btn btn-line" href="sample.html">See a Sample Dashboard</a>
+      </div>
     </div>
     <div id="towns">
       <h2>For towns</h2>
@@ -239,23 +242,18 @@
   </div>
 </div>
 
-<section>
-  <div class="wrap">
-    <h2>Live in Vail, Colorado</h2>
-    <p class="sub">YourSTRL runs today across rentVAIL's managed portfolio in Vail — every active unit publicly verifiable, with the official Town of Vail license document embedded on each page.</p>
-    <div class="cta-row">
-      <a class="btn btn-navy" href="https://strlicenses.github.io/licenses/verify.html?id=vail-village-inn" target="_blank" rel="noopener">Scan-to-Verify Demo</a>
-      <a class="btn btn-line" href="https://strlicenses.github.io/licenses/properties/coldstream-townhome-15.html" target="_blank" rel="noopener">Sample Property Page</a>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="wrap foot-inner">
     <div><b>YourSTRL</b> · Your STR License, verified.</div>
-    <div>Pilot partner: <a href="https://www.rentvail.com" target="_blank" rel="noopener">rentVAIL</a> · Vail, Colorado</div>
+    <div><a href="mailto:admin@yourstrl.com">admin@yourstrl.com</a></div>
   </div>
 </footer>
 
+<script>
+// If a Supabase auth callback lands here (magic link fallback), hand it to the portal.
+if (location.hash.includes('access_token') || location.hash.includes('type=magiclink') || location.hash.includes('error_code')) {
+  location.replace('portal.html' + location.hash);
+}
+</script>
 </body>
 </html>
