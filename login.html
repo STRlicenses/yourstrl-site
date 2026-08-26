@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — YourSTRL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --navy:#2C313C; --slate:#3C4655; --terra:#C05D4F; --terra-dk:#A34537;
+    --pink:#E7C5C2; --bg:#EDE9E6; --card:#FFFFFF; --line:#DDD5CE; --muted:#8A8F98;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--slate);line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+  a{color:var(--terra);text-decoration:none}
+  a:hover{color:var(--terra-dk);text-decoration:underline}
+
+  .top{background:var(--navy);padding:18px 28px;display:flex;align-items:center}
+  .logo{font-size:19px;font-weight:700;letter-spacing:-.3px;color:#fff}
+  .logo span{color:var(--pink)}
+  .logo:hover{text-decoration:none}
+  .top .tag{margin-left:auto;font-size:13px;color:rgba(255,255,255,.65)}
+
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+  .card{width:100%;max-width:410px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:40px 36px;box-shadow:0 18px 44px rgba(44,49,60,.12)}
+  h1{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:600;letter-spacing:-.4px;color:var(--navy);margin:0 0 8px}
+  .sub{font-size:14.5px;margin:0 0 22px}
+  label{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  input[type=email]{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#FBF9F7;color:var(--navy)}
+  input[type=email]:focus{outline:2px solid var(--terra);outline-offset:1px;border-color:var(--terra)}
+  button{width:100%;margin-top:18px;background:var(--terra);color:#fff;font:inherit;font-weight:600;font-size:15px;padding:15px 0;border:none;border-radius:999px;cursor:pointer}
+  button:hover{filter:brightness(1.07)}
+  button:disabled{opacity:.55;cursor:default}
+  .msg{margin-top:16px;font-size:14px;border-radius:10px;padding:12px 14px;display:none}
+  .msg.ok{display:block;background:#EAF3EA;color:#2F6B36;border:1px solid #CBE0CC}
+  .msg.err{display:block;background:#F7E7E4;color:var(--terra-dk);border:1px solid #E8C7C0}
+  .or{display:flex;align-items:center;gap:12px;margin:22px 0 0}
+  .or .l{flex:1;height:1px;background:#E8E1DB}
+  .or span{font-size:12px;color:#B0A9A2}
+  .new{font-size:13.5px;text-align:center;margin-top:18px}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="logo" href="index.html">Your<span>STRL</span></a>
+  <div class="tag">Partner portal</div>
+</div>
+
+<main>
+  <div class="card">
+    <h1>Sign in</h1>
+    <p class="sub">For property management partners. Enter your work email and we'll send you a secure sign-in link — no password needed.</p>
+    <form id="f">
+      <label for="email">Work email</label>
+      <input type="email" id="email" placeholder="you@yourcompany.com" required autocomplete="email">
+      <button type="submit" id="go">Email me a sign-in link</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <div class="or"><span class="l"></span><span>or</span><span class="l"></span></div>
+    <p class="new">New to YourSTRL? <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request">Request access</a> and we'll set up your portfolio.</p>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = supabase.createClient(
+  'https://wdqfqmitphwjlgjyeunv.supabase.co',
+  'sb_publishable_NfF2bh8o2DlKkDiPMkvTYA_bJnJWyMX'
+);
+
+// Already signed in? Straight to the portal.
+sb.auth.getSession().then(({data}) => {
+  if (data.session) location.replace('portal.html');
+});
+
+const f = document.getElementById('f');
+const msg = document.getElementById('msg');
+const go = document.getElementById('go');
+
+f.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  if (!email) return;
+  go.disabled = true; go.textContent = 'Sending…';
+  msg.className = 'msg';
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: location.origin + '/portal.html' }
+  });
+  if (error) {
+    msg.className = 'msg err';
+    msg.textContent = error.message.includes('rate') ?
+      'Too many requests — please wait a minute and try again.' :
+      'Could not send the link: ' + error.message;
+    go.disabled = false; go.textContent = 'Email me a sign-in link';
+  } else {
+    msg.className = 'msg ok';
+    msg.textContent = 'Check your inbox — we sent a sign-in link to ' + email + '. It works once and expires in an hour.';
+    go.textContent = 'Link sent ✓';
+  }
+});
+</script>
+</body>
+</html>

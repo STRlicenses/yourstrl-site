@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partner Portal — YourSTRL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --gov:#2C313C;
+    --accent:#C05D4F;
+    --accent-soft:#F6E9E6;
+    --good:#2F6B36;
+    --good-bg:#EAF3EA;
+    --warn:#a36a00;
+    --warn-bg:#fdf3e0;
+    --serious:#b23b3b;
+    --serious-bg:#fbeaea;
+    --ink:#2C313C;
+    --ink-2:#3C4655;
+    --muted:#8A8F98;
+    --line:#DDD5CE;
+    --bg:#EDE9E6;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* top bar */
+  .top{background:var(--gov);color:#fff;border-bottom:4px solid var(--accent)}
+  .top-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px}
+  .seal{width:40px;height:40px;border:2px solid rgba(255,255,255,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:1px;flex:0 0 auto}
+  .prod{font-size:17px;font-weight:700}
+  .prod small{display:block;font-size:12px;font-weight:400;opacity:.8}
+  .org{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:14px}
+  .org .badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-weight:600}
+  .demo-tag{position:fixed;right:14px;bottom:14px;background:var(--gov);color:#fff;font-size:11px;letter-spacing:1px;padding:6px 12px;border-radius:999px;opacity:.85;z-index:50}
+
+  main{max-width:1180px;margin:0 auto;padding:26px 24px 60px}
+  h1{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.3px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 22px}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tile .lbl{font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .tile .num{font-size:28px;font-weight:800;letter-spacing:-.5px}
+  .tile .ctx{font-size:12px;color:var(--muted);margin-top:2px}
+  .tile.ok .num::after{content:" ✓";color:var(--good);font-size:18px;font-weight:700}
+
+  /* upload */
+  .bulk{margin-bottom:14px}
+  .bulk .zones{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .zone-step{font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .zone-step b{color:var(--accent)}
+  .zone-done{margin-top:10px;font-size:13px;color:var(--good);font-weight:600;display:none}
+  .zone-done.show{display:block}
+  .zone-done small{display:block;color:var(--ink-2);font-weight:400}
+  .tmpl{font-size:12px;color:var(--muted);margin-top:8px}
+  .genrow{margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .gen{background:var(--gov);color:#fff;font-weight:700;font-size:14px;border:none;border-radius:999px;padding:11px 22px;cursor:pointer;opacity:.45}
+  .gen.ready{opacity:1}
+  .gen-done{display:none;font-size:14px;color:var(--good);font-weight:600}
+  .gen-done.show{display:block}
+  .gen-done a{margin-left:8px}
+  .grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h2{font-size:15px;margin:0 0 12px}
+  .drop{border:2px dashed #D9C9C2;border-radius:10px;padding:26px;text-align:center;color:var(--muted);font-size:14px;transition:background .15s,border-color .15s;cursor:pointer}
+  .drop.over{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .drop strong{color:var(--ink-2)}
+  .drop .ico{font-size:26px;display:block;margin-bottom:6px}
+  .browse{display:inline-block;margin-top:10px;background:var(--accent);color:#fff;font-weight:600;font-size:13px;border:none;border-radius:999px;padding:9px 18px;cursor:pointer}
+  #file-in{display:none}
+  .match{margin-top:14px;display:none;border-radius:10px;padding:14px 16px;font-size:14px}
+  .match.show{display:flex;gap:10px;align-items:flex-start}
+  .match.good{background:var(--good-bg);border:1px solid #CBE0CC;color:var(--good)}
+  .match .tick{width:22px;height:22px;background:var(--good);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto;margin-top:1px}
+  .match b{color:var(--ink)}
+  .match small{display:block;color:var(--ink-2);font-weight:400}
+  .steps{font-size:13px;color:var(--ink-2);margin:0;padding-left:18px}
+  .steps li{margin-bottom:8px}
+  .steps b{color:var(--ink)}
+
+  /* renewal */
+  .renew .row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);padding:7px 0;border-bottom:1px solid var(--line)}
+  .renew .row:last-child{border-bottom:0}
+  .renew .row b{color:var(--ink)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px}
+  .pill.active{background:var(--good-bg);color:var(--good)}
+  .pill.active::before{content:"✓"}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.warn::before{content:"⏱"}
+
+  /* table */
+  .tablebar{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .tablebar h2{font-size:15px;margin:0}
+  .tablebar input{margin-left:auto;font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;width:260px;background:var(--card)}
+  .count{font-size:12px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  thead th{text-align:left;font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--accent);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line);background:#FBF9F7}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:#F7F3F0}
+  td .unit{font-weight:600}
+  td .addr{font-size:12px;color:var(--muted)}
+  td.lic{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .links a{margin-right:10px;font-size:13px;white-space:nowrap}
+  .wrap-note{font-size:12px;color:var(--muted);margin-top:10px}
+
+  @media(max-width:860px){
+    .tiles{grid-template-columns:repeat(2,1fr)}
+    .grid2{grid-template-columns:1fr}
+    .tablebar input{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="prod">Your<span style="color:#E7C5C2">STRL</span> Partner Portal<small>STR License Manager</small></div>
+    <div class="org">
+      <span class="badge">rentVAIL</span>
+      <span id="who" style="font-size:13px;opacity:.8"></span>
+      <button id="signout" style="font:inherit;font-size:13px;font-weight:600;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 16px;cursor:pointer">Sign out</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1>License Portfolio</h1>
+  <p class="sub">Every active unit, its official Town of Vail STR license, and its public verification page — kept current in one place.</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="lbl">Active Units</div><div class="num" id="t-units">—</div><div class="ctx">in portfolio</div></div>
+    <div class="tile ok"><div class="lbl">Licenses on File</div><div class="num" id="t-lic">—</div><div class="ctx">official PDFs verified</div></div>
+    <div class="tile ok"><div class="lbl">Compliance</div><div class="num">100%</div><div class="ctx">all units publicly verifiable</div></div>
+    <div class="tile"><div class="lbl">Renewal Deadline</div><div class="num" id="t-days">—</div><div class="ctx">days · licenses expire Feb 28, 2027</div></div>
+  </div>
+
+  <section class="card bulk">
+    <h2>Bulk Onboarding — Bring Your Whole Portfolio</h2>
+    <div class="zones">
+      <div>
+        <div class="zone-step"><b>Step 1</b> · Property spreadsheet</div>
+        <div class="drop" id="drop-xl">
+          <span class="ico">📊</span>
+          Drop your Excel or CSV with <strong>property name, license #, and address</strong>
+          <br><button class="browse" type="button" onclick="document.getElementById('xl-in').click()">Choose Spreadsheet</button>
+          <input type="file" id="xl-in" accept=".xlsx,.xls,.csv" style="display:none">
+        </div>
+        <div class="zone-done" id="xl-done"></div>
+        <div class="tmpl"><a href="data:text/csv;charset=utf-8,Property%20Name,License%20Number,Address,Expires%0A" download="str-portfolio-template.csv">Download the template (.csv)</a> — three columns is all we need.</div>
+      </div>
+      <div>
+        <div class="zone-step"><b>Step 2</b> · License PDFs</div>
+        <div class="drop" id="drop-bulk">
+          <span class="ico">🗂</span>
+          Drop <strong>all your license PDFs at once</strong> — exactly as downloaded, any filenames
+          <br><button class="browse" type="button" onclick="document.getElementById('bulk-in').click()">Choose PDFs</button>
+          <input type="file" id="bulk-in" accept="application/pdf" multiple style="display:none">
+        </div>
+        <div class="zone-done" id="bulk-done"></div>
+        <div class="tmpl">Each PDF is matched to its unit by the license number printed on the document.</div>
+      </div>
+    </div>
+    <div class="genrow">
+      <button class="gen" id="gen" type="button">Generate QR Presentation Cards</button>
+      <span class="gen-done" id="gen-done">✓ <b id="gen-count"></b> QR presentation cards ready — print-ready 4×6 door cards for every unit.<a href="https://strlicenses.github.io/licenses/label.html?id=coldstream-townhome-15" target="_blank" rel="noopener">See a sample card</a></span>
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Upload a Single License</h2>
+      <div class="drop" id="drop">
+        <span class="ico">⇪</span>
+        Drag &amp; drop the PDF straight from the MuniRevs download<br>
+        <strong>We read the license number and match it to the right unit automatically</strong>
+        <br><button class="browse" type="button" onclick="document.getElementById('file-in').click()">Choose PDF</button>
+        <input type="file" id="file-in" accept="application/pdf" multiple>
+      </div>
+      <div class="match good" id="match">
+        <div class="tick">✓</div>
+        <div id="match-txt"></div>
+      </div>
+    </section>
+
+    <section class="card renew">
+      <h2>How It Works</h2>
+      <ol class="steps">
+        <li><b>Upload</b> — drop each license PDF as downloaded; no renaming, no filing.</li>
+        <li><b>Auto-match</b> — the license number on the document is matched to the unit.</li>
+        <li><b>Publish</b> — the unit's public verification page and QR label update instantly.</li>
+      </ol>
+      <div class="row"><span>Renewal window opens</span><b>Nov 1, 2026</b></div>
+      <div class="row"><span>All licenses expire</span><b>Feb 28, 2027</b></div>
+      <div class="row"><span>Auto-reminders</span><b>90 / 30 / 7 days</b></div>
+    </section>
+  </div>
+
+  <div class="tablebar">
+    <h2>Units</h2>
+    <span class="count" id="count"></span>
+    <input type="search" id="q" placeholder="Search unit, address, or license #…">
+  </div>
+  <table>
+    <thead><tr>
+      <th>Unit</th><th>License #</th><th>Expires</th><th>Status</th><th>Public Links</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="wrap-note">Public links open the live verification site at strlicenses.github.io — the same pages guests, neighbors, and Town inspectors reach by scanning the unit's door QR.</p>
+</main>
+
+<div class="demo-tag">EARLY PREVIEW · UPLOADS SIMULATED</div>
+
+<script>
+const SITE = 'https://strlicenses.github.io/licenses/';
+const UNITS = [{"slug": "coldstream-townhome-15", "name": "Coldstream Townhome 15", "lic": "STL-004834", "addr": "1476 Westhaven Drive #15, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "glacier-court-1854-a", "name": "Glacier Court 1854 A", "lic": "STL-044336", "addr": "1854 A Glacier Ct, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "glacier-court-1844-b", "name": "Glacier Court 1844 B", "lic": "STL-007611", "addr": "1844 B Glacier Court, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "glen-lyon-lodge", "name": "Glen Lyon Lodge", "lic": "STL-003569", "addr": "1462 Greenhill Court, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "1319-greenhill-court-vacation-home", "name": "1319 Greenhill Court Vacation Home", "lic": "STL-041564", "addr": "1319 Greenhill Court, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-21-condo-502", "name": "Vail 21 Condo 502", "lic": "STL-007442", "addr": "521 East Lionshead Circle #502, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-105", "name": "Vantage Point Condo 105", "lic": "STL-007439", "addr": "508 East Lionshead Circle #105, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-201", "name": "Vantage Point Condo 201", "lic": "STL-007455", "addr": "508 East Lionshead Circle #201, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-21-condo-501", "name": "Vail 21 Condo 501", "lic": "STL-042216", "addr": "521 East Lionshead Circle #501, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "coldstream-townhome-38", "name": "Coldstream Townhome 38", "lic": "STL-007332", "addr": "1476 Westhaven Drive #38, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-411", "name": "Vantage Point Condo 411", "lic": "STL-007488", "addr": "508 East Lionshead Circle #411, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-21-condo-302", "name": "Vail 21 Condo 302", "lic": "STL-007513", "addr": "521 East Lionshead Circle #302, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-21-condo-301", "name": "Vail 21 Condo 301", "lic": "STL-007512", "addr": "521 East Lionshead Circle #301, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "golf-terrace-townhome-25", "name": "Golf Terrace Townhome 25", "lic": "STL-007437", "addr": "1610 Sunburst Drive #25, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "cascades-on-gore-creek", "name": "Cascades On Gore Creek", "lic": "STL-007313", "addr": "1390 Westhaven Drive #3, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-304", "name": "Vantage Point Condo 304", "lic": "STL-007336", "addr": "508 East Lionshead Circle #304, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "tree-top-condo", "name": "Tree Top Condo", "lic": "STL-011268", "addr": "450 East Lionshead Circle #2C, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-center-1g", "name": "Village Center 1G", "lic": "032192", "addr": "124 Willow Bridge Road #1G, Vail, CO 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-international-007", "name": "Vail International 007", "lic": "STL-042680", "addr": "300 E Lionshead Circle #007, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "skaal-haus-3", "name": "Skaal Haus 3", "lic": "STL-011270", "addr": "141 West Meadow Drive #3, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-601", "name": "Vantage Point Condo 601", "lic": "STL-007740", "addr": "508 East Lionshead Circle #601, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "greenhill-court-chalet", "name": "GreenHill Court Chalet", "lic": "STL-024348", "addr": "1464 Greenhill Court, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "casa-del-sol", "name": "Casa Del Sol", "lic": "STL-004817", "addr": "2065 West Gore Creek Drive #6, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-314", "name": "Vantage Point Condo 314", "lic": "STL-032880", "addr": "508 East Lionshead Circle #314, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-center-1f", "name": "Village Center 1F", "lic": "STL-033046", "addr": "124 Willow Bridge Road #1F, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "sandstone-chalet", "name": "Sandstone Chalet", "lic": "STL-027682", "addr": "1179 Sandstone Drive, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-center-1e", "name": "Village Center 1E", "lic": "STL-026464", "addr": "124 Willow Bridge Road #1E, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-village-inn", "name": "Vail Village Inn", "lic": "STL-028250", "addr": "68 East Meadow Drive 308/309, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "coldstream-townhome-7", "name": "Coldstream Townhome 7", "lic": "STL-009636", "addr": "1476 Westhaven Drive, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "lionshead-center", "name": "Lionshead Center", "lic": "STL-028166", "addr": "520 East Lionshead Circle #305, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "red-lion-penthouse", "name": "Red Lion Penthouse", "lic": "STL-028156", "addr": "304 Bridge Street, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "golden-peak-penthouse", "name": "Golden Peak Penthouse", "lic": "STL-026210", "addr": "598 Vail Valley Drive, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-center-4j", "name": "Village Center 4J", "lic": "STL-028160", "addr": "120 Willow Bridge Road #4J, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-inn-plaza-103", "name": "Village Inn Plaza 103", "lic": "STL-028154", "addr": "68 South Frontage Road East #103, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "wren-at-vail", "name": "Wren At Vail", "lic": "STL-028158", "addr": "500 South Frontage Road East #402, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "millrace-6-a", "name": "Millrace 6-A", "lic": "STL-028252", "addr": "1360 Westhaven Drive 6A, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "potato-patch", "name": "Potato Patch", "lic": "STL-028170", "addr": "950 Red Sandstone Road #41, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-303", "name": "Vantage Point Condo 303", "lic": "STL-035758", "addr": "508 East Lionshead Circle #303, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "chamonix-chalet", "name": "Chamonix Chalet", "lic": "STL-028990", "addr": "2139 W Chamonix Lane, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "coldstream-townhome-19", "name": "Coldstream Townhome 19", "lic": "STL-009628", "addr": "1476 Westhaven Drive #19, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-502", "name": "Vantage Point Condo 502", "lic": "STL-041898", "addr": "508 East Lionshead Circle #502, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "apres-chalet", "name": "Aprés Chalet", "lic": "STL-032978", "addr": "4842 Meadow Lane, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "ptarmigan-townhome-2", "name": "Ptarmigan Townhome 2", "lic": "STL-026428", "addr": "1975 Placid Drive #2, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "pitkin-creek-park-3f", "name": "Pitkin Creek Park 3F", "lic": "STL-026416", "addr": "3921 Big Horn Road #3F, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "ptarmigan-townhomes-30", "name": "Ptarmigan Townhomes 30", "lic": "STL-027760", "addr": "1975 West Gore Creek Drive #30, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "skaal-haus-1", "name": "Skaal Haus 1", "lic": "STL-007994", "addr": "141 West Meadow Drive #1, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-mountain-vista", "name": "Vail Mountain Vista", "lic": "STL-032146", "addr": "3230 Katsos Ranch, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "villa-cortina-120", "name": "Villa Cortina 120", "lic": "STL-035228", "addr": "22 W Meadow Dr #120, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "liftside-c22", "name": "Liftside C22", "lic": "STL-028580", "addr": "1234 Westhaven Dr #C22, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "fallridge-401", "name": "Fallridge 401", "lic": "STL-035596", "addr": "1650 Fallridge Place #401, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-international-211", "name": "Vail International 211", "lic": "STL-040026", "addr": "300 E Lionshead Circle #211, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "9-vail-road-23", "name": "9 Vail Road #23", "lic": "STL-035820", "addr": "9 Vail Rd #23, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vantage-point-condo-103", "name": "Vantage Point Condo 103", "lic": "STL-042218", "addr": "508 East Lionshead Circle #103, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "nugget-lane-b", "name": "Nugget Lane B", "lic": "STL-012842", "addr": "4267 Nugget Lane B, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "vail-chalet", "name": "Vail Chalet", "lic": "STL-029454", "addr": "1242 Westhaven Circle, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "arrabelle-460", "name": "Arrabelle 460", "lic": "STL-010508", "addr": "675 Lionshead Pl #460, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "chateau-tremonte-8", "name": "Chateau Tremonte 8", "lic": "STL-038714", "addr": "1890 Lionsridge Loop, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "village-center-5e", "name": "Village Center 5E", "lic": "STL-039902", "addr": "124 Willow Bridge Road #5E, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "rockledge-325", "name": "Rockledge 325", "lic": "STL-040108", "addr": "325 Rockledge Rd. Unit A, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "225-forest-road", "name": "225 Forest Road", "lic": "STL-034238", "addr": "225 Forest Road, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "all-seasons-4-bedroom", "name": "All Seasons 4 Bedroom", "lic": "STL-032196 & STL-032198", "addr": "434 Gore Creek Drive, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}, {"slug": "all-seasons-c-2b", "name": "All Seasons C-2B", "lic": "STL-034006", "addr": "434 Gore Creek Drive #C2B, Vail, CO, 81657", "exp": "February 28, 2027", "status": "Active"}];
+
+/* stat tiles */
+document.getElementById('t-units').textContent = UNITS.length;
+document.getElementById('t-lic').textContent = UNITS.length + 1; /* All Seasons 4BR holds two licenses */
+const days = Math.max(0, Math.round((new Date('2027-02-28') - new Date()) / 864e5));
+document.getElementById('t-days').textContent = days;
+
+/* table */
+const rows = document.getElementById('rows');
+function esc(s){const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+function render(list){
+  rows.innerHTML = list.map(u => `
+    <tr>
+      <td><div class="unit">${esc(u.name)}</div><div class="addr">${esc(u.addr)}</div></td>
+      <td class="lic">${esc(u.lic)}</td>
+      <td>${esc(u.exp)}</td>
+      <td><span class="pill active">${esc(u.status)}</span></td>
+      <td class="links">
+        <a href="${SITE}verify.html?id=${encodeURIComponent(u.slug)}" target="_blank" rel="noopener">Verify page</a>
+        <a href="${SITE}licenses/${encodeURIComponent(u.slug)}.pdf" target="_blank" rel="noopener">License PDF</a>
+        <a href="${SITE}label.html?id=${encodeURIComponent(u.slug)}" target="_blank" rel="noopener">QR label</a>
+      </td>
+    </tr>`).join('');
+  document.getElementById('count').textContent = list.length + ' of ' + UNITS.length;
+}
+render(UNITS);
+
+document.getElementById('q').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  render(!q ? UNITS : UNITS.filter(u =>
+    (u.name + ' ' + u.addr + ' ' + u.lic).toLowerCase().includes(q)));
+});
+
+/* upload demo — client-side simulation, nothing leaves the browser */
+const drop = document.getElementById('drop');
+const matchBox = document.getElementById('match');
+const matchTxt = document.getElementById('match-txt');
+let demoIdx = 0;
+function simulateUpload(fileName){
+  const u = UNITS[demoIdx % UNITS.length]; demoIdx++;
+  matchTxt.innerHTML = '<b>' + esc(fileName || 'print-license.pdf') + '</b> matched to <b>' + esc(u.name) +
+    '</b> · ' + esc(u.lic) +
+    '<small>Renamed to ' + esc(u.slug) + '.pdf — verification page &amp; QR label updated.</small>';
+  matchBox.classList.add('show');
+}
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => {e.preventDefault(); drop.classList.remove('over');}));
+drop.addEventListener('drop', e => {
+  const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  simulateUpload(f ? f.name : null);
+});
+document.getElementById('file-in').addEventListener('change', e => {
+  simulateUpload(e.target.files[0] ? e.target.files[0].name : null);
+  e.target.value = '';
+});
+
+/* bulk onboarding demo — client-side simulation */
+const bulkState = {sheet:false, pdfs:0};
+const gen = document.getElementById('gen');
+function wireDrop(zoneId, inputId, handler){
+  const z = document.getElementById(zoneId), inp = document.getElementById(inputId);
+  ['dragenter','dragover'].forEach(ev => z.addEventListener(ev, e => {e.preventDefault(); z.classList.add('over');}));
+  ['dragleave','drop'].forEach(ev => z.addEventListener(ev, e => {e.preventDefault(); z.classList.remove('over');}));
+  z.addEventListener('drop', e => handler(e.dataTransfer ? e.dataTransfer.files : []));
+  inp.addEventListener('change', e => {handler(e.target.files); e.target.value='';});
+}
+function refreshGen(){ gen.classList.toggle('ready', bulkState.sheet && bulkState.pdfs > 0); }
+wireDrop('drop-xl','xl-in', files => {
+  const name = files[0] ? files[0].name : 'portfolio.xlsx';
+  bulkState.sheet = true;
+  const d = document.getElementById('xl-done');
+  d.innerHTML = '✓ ' + esc(name) + ' — <b>' + UNITS.length + ' properties imported</b><small>Names, license numbers, and addresses read from the sheet.</small>';
+  d.classList.add('show'); refreshGen();
+});
+wireDrop('drop-bulk','bulk-in', files => {
+  const n = files.length || UNITS.length;
+  bulkState.pdfs = n;
+  const d = document.getElementById('bulk-done');
+  d.innerHTML = '✓ <b>' + n + ' license PDF' + (n===1?'':'s') + ' received</b> — matched to units by license number<small>No renaming needed; unmatched documents are flagged for review.</small>';
+  d.classList.add('show'); refreshGen();
+});
+gen.addEventListener('click', () => {
+  if(!gen.classList.contains('ready')) return;
+  document.getElementById('gen-count').textContent = UNITS.length;
+  document.getElementById('gen-done').classList.add('show');
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const _sb = supabase.createClient(
+  'https://wdqfqmitphwjlgjyeunv.supabase.co',
+  'sb_publishable_NfF2bh8o2DlKkDiPMkvTYA_bJnJWyMX'
+);
+document.documentElement.style.visibility = 'hidden';
+_sb.auth.getSession().then(({data}) => {
+  // detectSessionInUrl runs on page load; give the magic-link hash a beat to be consumed.
+  if (data.session) {
+    document.getElementById('who').textContent = data.session.user.email;
+    document.documentElement.style.visibility = '';
+  } else {
+    _sb.auth.onAuthStateChange((ev, session) => {
+      if (session) {
+        document.getElementById('who').textContent = session.user.email;
+        document.documentElement.style.visibility = '';
+      }
+    });
+    setTimeout(async () => {
+      const {data:{session}} = await _sb.auth.getSession();
+      if (!session) location.replace('login.html');
+    }, 1600);
+  }
+});
+document.getElementById('signout').addEventListener('click', async () => {
+  await _sb.auth.signOut();
+  location.replace('login.html');
+});
+</script>
+</body>
+</html>
