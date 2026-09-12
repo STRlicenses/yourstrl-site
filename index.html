@@ -1,259 +1,380 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<script>if(location.protocol==='http:'&&location.hostname.endsWith('yourstrl.com'))location.replace(location.href.replace('http://','https://'));</script>
+<html><head><script>if(location.protocol==='http:'&&location.hostname.endsWith('yourstrl.com'))location.replace(location.href.replace('http://','https://'));</script>
+
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YourSTRL — Your STR License, Verified</title>
-<meta name="description" content="A permanent QR standard for short-term rental license verification. One card at the door, always current, verifiable by anyone.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
-<style>
-  :root{
-    --navy:#2C313C; --slate:#3C4655; --terra:#C05D4F; --terra-dk:#A34537;
-    --pink:#E7C5C2; --bg:#EDE9E6; --card:#FFFFFF; --line:#DDD5CE;
-    --ink:#2C313C; --body:#3C4655; --muted:#8A8F98;
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>YourSTRL — One Place for Your Rental Licenses</title><meta name="description" content="Keep every short-term rental license in one register. See what is current, what expires next, and who is responsible for it, then share it in a single link."><link rel="canonical" href="https://yourstrl.com/"><meta property="og:type" content="website"><meta property="og:site_name" content="YourSTRL"><meta property="og:title" content="YourSTRL — One Place for Your Rental Licenses"><meta property="og:description" content="Keep every short-term rental license in one register. See what is current, what expires next, and who is responsible for it, then share it in a single link."><meta property="og:url" content="https://yourstrl.com/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="YourSTRL — One Place for Your Rental Licenses"><meta name="twitter:description" content="Keep every short-term rental license in one register. See what is current, what expires next, and who is responsible for it, then share it in a single link."><meta name="theme-color" content="#ffffff">
+
+<style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>
+  html { scroll-behavior: smooth; }
+  html, body { margin:0; padding:0; background:#F5F5F2; }
+  * { box-sizing: border-box; }
+  a { color:#1B34C4; text-decoration:none; transition: color 160ms ease; }
+  a:hover { color:#111110; }
+  ::selection { background:#1B34C4; color:#fff; }
+  @keyframes om-rise { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+  @keyframes om-rise-l { from { opacity:0; transform:translateX(-22px); } to { opacity:1; transform:none; } }
+  @keyframes om-rise-r { from { opacity:0; transform:translateX(22px); } to { opacity:1; transform:none; } }
+  @keyframes om-scale { from { opacity:0; transform:scale(0.97) translateY(20px); } to { opacity:1; transform:none; } }
+  @keyframes om-progress { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+  @keyframes om-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.45; transform:scale(0.82); } }
+  @keyframes om-drop { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+  [data-hoverlift] { transition: transform 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms ease, border-color 280ms ease; }
+  [data-hoverlift]:hover { transform: translateY(-4px); box-shadow: 0 14px 34px -16px rgba(17,17,16,0.28); border-color: #C9C9C3; }
+  [data-row] { transition: background 200ms ease, padding-left 200ms ease; }
+  [data-row]:hover { background:#FAFAF8; padding-left:32px; }
+  [data-underline] { position:relative; }
+  [data-underline]::after { content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:#111110; transform:scaleX(0); transform-origin:left; transition:transform 240ms cubic-bezier(0.22,1,0.36,1); }
+  [data-underline]:hover::after { transform:scaleX(1); }
+  #om-progress { position:fixed; left:0; top:0; height:2px; width:100%; background:#1B34C4; transform-origin:left; transform:scaleX(0); z-index:100; }
+  @supports (animation-timeline: scroll()) {
+    #om-progress { animation: om-progress linear both; animation-timeline: scroll(root); }
   }
-  *{box-sizing:border-box}
-  body{margin:0;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--body);line-height:1.6}
-  a{color:var(--terra);text-decoration:none}
-  a:hover{color:var(--terra-dk);text-decoration:underline}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(32px,6vw,84px)}
-  .serif{font-family:'Fraunces',Georgia,serif}
-
-  header{background:var(--navy);color:#fff}
-  .nav{display:flex;align-items:center;gap:24px;padding:22px 0;flex-wrap:wrap}
-  .logo{font-size:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff}
-  .nav .links{margin-left:auto;display:flex;gap:26px;font-size:14px;font-weight:500;flex-wrap:wrap}
-  .nav .links a{color:rgba(255,255,255,.75)}
-  .nav .links a:hover{color:#fff;text-decoration:none}
-  .btn{display:inline-block;font-weight:600;font-size:15px;border-radius:999px;padding:13px 26px;cursor:pointer;border:none}
-  .btn-terra{background:var(--terra);color:#fff}
-  .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
-  .btn-navy{background:var(--navy);color:#fff}
-  .btn-line{background:var(--card);border:1px solid var(--line);color:var(--ink)}
-  .btn:hover{text-decoration:none;filter:brightness(1.07)}
-  .nav-cta{display:flex;gap:10px;align-items:center}
-  .nav-cta .btn{padding:10px 22px;font-size:14px}
-
-  .hero{display:flex;align-items:center;gap:60px;padding-top:64px;padding-bottom:84px}
-  .hero-copy{flex:1 1 0;display:flex;flex-direction:column;gap:22px}
-  .kicker{display:flex;align-items:center;gap:10px}
-  .kicker .bar{width:28px;height:2px;background:var(--terra)}
-  .kicker .txt{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);font-weight:600}
-  h1{font-family:'Fraunces',Georgia,serif;font-size:54px;line-height:1.05;letter-spacing:-1px;margin:0;font-weight:600;color:#fff}
-  .hero p{font-size:18px;max-width:480px;color:rgba(255,255,255,.72);margin:0}
-  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
-
-  .doorcard{flex:0 0 auto;transform:rotate(2deg)}
-  .dc{width:290px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(20,23,30,.45)}
-  .dc-head{background:var(--slate);padding:15px 18px;display:flex;flex-direction:column;align-items:center;gap:4px}
-  .dc-head .juris{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6)}
-  .dc-head .cap{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);font-weight:700}
-  .dc-body{padding:18px 18px 14px;display:flex;flex-direction:column;align-items:center;gap:11px}
-  .dc-body .unit{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:600;color:var(--navy)}
-  .dc-body .scan{font-size:13px;color:var(--terra);font-weight:600}
-  .dc svg{border:1px solid #E1D9D3;border-radius:10px;padding:8px}
-  .dc-lic{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--navy)}
-  .dc-lic .pill{background:var(--pink);color:var(--terra-dk);font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px}
-  .dc-foot{border-top:1px solid #E1D9D3;background:#F7F3F0;padding:9px;text-align:center;font-size:10px;color:var(--muted)}
-
-  .stats{background:var(--card);border-bottom:1px solid var(--line)}
-  .stats .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:30px;padding-bottom:30px}
-  .stat{display:flex;align-items:baseline;gap:10px;justify-content:center}
-  .stat .n{font-family:'Fraunces',Georgia,serif;font-size:30px;font-weight:700;color:var(--navy)}
-  .stat.mid .n{color:var(--terra)}
-  .stat .l{font-size:14px;color:var(--muted)}
-
-  section{padding:72px 0}
-  h2{font-family:'Fraunces',Georgia,serif;font-size:34px;letter-spacing:-.5px;color:var(--ink);margin:0 0 10px;font-weight:600}
-  .sub{color:var(--muted);font-size:16px;margin:0 0 34px;max-width:640px}
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px}
-  .card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--terra);margin:10px 0}
-  .card h3{margin:0 0 8px;font-family:'Fraunces',Georgia,serif;font-size:20px;color:var(--ink);font-weight:600}
-  .card p{margin:0;font-size:14.5px}
-  .card svg{display:block}
-
-  .band{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-  .check{list-style:none;padding:0;margin:0 0 18px}
-  .check li{padding-left:32px;position:relative;margin-bottom:13px;font-size:15px}
-  .check li::before{content:"✓";position:absolute;left:0;top:2px;width:20px;height:20px;background:var(--pink);color:var(--terra-dk);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
-  .check b{color:var(--ink)}
-
-  .pricing{background:var(--navy);color:#fff}
-  .pricing .inner{display:flex;align-items:center;gap:48px;flex-wrap:wrap;padding-top:60px;padding-bottom:60px}
-  .pricing .pk{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:600;margin-bottom:14px}
-  .tiers{display:flex;gap:14px;flex-wrap:wrap}
-  .tier{border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:18px 22px;min-width:128px}
-  .tier.hot{border-color:var(--terra);background:rgba(192,93,79,.16)}
-  .tier .r{font-size:12.5px;color:rgba(255,255,255,.6)}
-  .tier.hot .r{color:var(--pink)}
-  .tier .p{font-family:'Fraunces',Georgia,serif;font-size:30px;font-weight:700;color:#fff}
-  .tier.hot .p{color:var(--pink)}
-  .tier .u{font-size:11.5px;color:rgba(255,255,255,.5)}
-  .pricing .note{font-size:13px;color:rgba(255,255,255,.55);margin-top:14px;max-width:560px}
-  .pricing .cta{margin-left:auto}
-
-  footer{padding:28px 0 44px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);background:var(--card)}
-  footer .foot-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  footer b{color:var(--ink)}
-
-  @media(max-width:900px){
-    .wrap{padding:0 24px}
-    h1{font-size:36px}
-    .hero{flex-direction:column;gap:44px;padding-top:48px;padding-bottom:60px}
-    .cards{grid-template-columns:1fr}
-    .split{grid-template-columns:1fr}
-    .stats .row{grid-template-columns:1fr;gap:10px}
-    .stat{justify-content:flex-start}
-    .pricing .cta{margin-left:0}
+  @supports (animation-timeline: view()) {
+    [data-reveal] { animation: om-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    [data-reveal="left"] { animation-name: om-rise-l; }
+    [data-reveal="right"] { animation-name: om-rise-r; }
+    [data-reveal="scale"] { animation-name: om-scale; animation-range: entry 0% entry 100%; }
   }
-</style>
-</head>
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { animation: none !important; }
+    #om-progress { animation: none !important; }
+    [data-hoverlift]:hover { transform:none; }
+  }
+  @keyframes om-grow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+</style></head>
 <body>
+<div id="dc-root"><div class="sc-host" data-sc-name="b5aa4e59-25e0-4c4a-877e-29c4df35a59a"><div style="background: rgb(245, 245, 242); color: rgb(17, 17, 16); font-family: Archivo, system-ui, sans-serif; -webkit-font-smoothing: antialiased; width: 100%; overflow: hidden; font-variant-numeric: tabular-nums;">
+  
 
-<header>
-  <div class="wrap nav">
-    <nav class="links">
-      <a href="#how">How it works</a>
-      <a href="#companies">For managers</a>
-      <a href="#towns">For towns</a>
-      <a href="#pricing">Pricing</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn btn-ghost" href="login.html">Sign in</a>
-      <a class="btn btn-terra" href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request">Request Access</a>
-    </div>
-  </div>
-  <div class="wrap hero">
-    <div class="hero-copy">
-      <div class="kicker"><span class="bar"></span><span class="txt">STR License Verification</span></div>
-      <h1>Verify once. Never swap the placard again.</h1>
-      <p>One permanent QR card at each rental's door. Scanning opens the official verification page with the current license, status, and document. Updated centrally at renewal; the card never changes.</p>
-      <div class="cta-row">
-        <a class="btn btn-terra" href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request">Request Access</a>
-        <a class="btn btn-ghost" href="https://strlicenses.github.io/licenses/verify.html?id=coldstream-townhome-15" target="_blank" rel="noopener">See a Live Page</a>
+  <header style="position: sticky; top: 0px; z-index: 50; background: rgba(245, 245, 242, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgb(226, 226, 221);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 0px 24px; height: 66px; display: flex; align-items: center; gap: 34px;">
+      <span style="font-weight: 700; font-size: 18px; letter-spacing: -0.035em;">YourSTRL</span>
+      <nav style="display: flex; gap: 24px; font-size: 14.5px; color: rgb(92, 93, 87);">
+        <a href="#how" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">How it works</a>
+        <a href="#companies" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">Companies</a>
+        <a href="#towns" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">Towns</a>
+        <a href="#pricing" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">Pricing</a>
+        <a href="about.html" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">About</a>
+      </nav>
+      <div style="flex: 1 1 0%;"></div>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <a href="login.html" class="scp0" style="font-size: 14.5px; color: rgb(92, 93, 87); transition: color 160ms;">Sign in</a>
+        <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" class="scp1" style="font-size: 14.5px; font-weight: 500; background: rgb(17, 17, 16); color: rgb(245, 245, 242); padding: 10px 17px; border-radius: 3px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; transition: background 180ms;">Request access</a>
       </div>
     </div>
-    <div class="doorcard">
-      <div class="dc">
-        <div class="dc-head">
-          <div class="juris">Your Town, Colorado</div>
-          <div class="cap">Short-Term Rental License</div>
+  </header>
+
+  <section style="border-bottom: 1px solid rgb(226, 226, 221);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 80px 24px 0px; text-align: center;">
+      <div data-reveal="" style="display: inline-block; font-size: 13.5px; font-weight: 500; line-height: 1.35; color: rgb(27, 52, 196); background: rgb(236, 239, 252); padding: 6px 12px; border-radius: 3px; text-wrap: balance;">Short-term rental license compliance</div>
+      <h1 data-reveal="" style="margin: 26px auto 0px; font-size: clamp(35px, 5vw, 58px); line-height: 1.02; letter-spacing: -0.04em; font-weight: 600; max-width: 20ch; text-wrap: balance;">One place for your licenses. One less thing to chase.</h1>
+      <p data-reveal="" style="margin: 24px auto 0px; font-size: 17.5px; line-height: 1.55; color: rgb(92, 93, 87); max-width: 62ch; text-wrap: pretty;">Keep every rental license in one register instead of scattered folders and renewal reminders. Your team sees what is current, what expires next, and who is responsible for it, so renewal season stops being a project.</p>
+      <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 34px 0px 0px; justify-content: center; align-items: center;">
+        <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" class="scp1" style="font-size: 15px; font-weight: 500; background: rgb(17, 17, 16); color: rgb(245, 245, 242); padding: 13px 22px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; text-align: center; transition: background 180ms;">Request access</a>
+        <a href="sample.html" class="scp2" style="font-size: 15px; font-weight: 500; border: 1px solid rgb(201, 201, 195); color: rgb(17, 17, 16); padding: 13px 22px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; text-align: center; transition: border-color 180ms;">Sample dashboard</a>
+      </div>
+      <div data-reveal="" style="display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 20px 0px 0px; justify-content: center; font-size: 14.5px;">
+        <a href="https://verify.yourstrl.com/verify.html?id=coldstream-townhome-15" data-underline="" style="color: rgb(27, 52, 196);">See a live page</a>
+        <a href="https://verify.yourstrl.com/label.html?id=coldstream-townhome-15" data-underline="" style="color: rgb(27, 52, 196);">See a door card</a>
+        <a href="#how" data-underline="" style="color: rgb(27, 52, 196);">See how it works</a>
+      </div>
+      <div data-reveal="" style="margin-top: 18px; font-size: 13.5px; color: rgb(106, 107, 100);">Built with property managers and town staff. Nothing to install.</div>
+
+      <div data-reveal="scale" style="margin: 62px 0px 0px; text-align: left; background: rgb(255, 255, 255); border-width: 1px 1px 0px; border-style: solid solid none; border-color: rgb(226, 226, 221) rgb(226, 226, 221) currentcolor; border-image: none; border-radius: 4px 4px 0px 0px; overflow: hidden;">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; justify-content: space-between; padding: 20px 26px; border-bottom: 1px solid rgb(237, 237, 233);">
+          <span style="font-size: 15.5px; font-weight: 600; letter-spacing: -0.015em;">Your register</span>
+          <span style="font-size: 13.5px; color: rgb(106, 107, 100);">An example of what you see</span>
         </div>
-        <div class="dc-body">
-          <div class="unit">Alpine Creek 4B</div>
-          <div class="scan">Scan to Verify License</div>
-          <svg width="146" height="146" viewBox="0 0 29 29">
-            <rect x="0" y="0" width="7" height="7" fill="none" stroke="#2C313C" stroke-width="2"/><rect x="2.5" y="2.5" width="2" height="2" fill="#2C313C"/>
-            <rect x="22" y="0" width="7" height="7" fill="none" stroke="#2C313C" stroke-width="2"/><rect x="24.5" y="2.5" width="2" height="2" fill="#2C313C"/>
-            <rect x="0" y="22" width="7" height="7" fill="none" stroke="#2C313C" stroke-width="2"/><rect x="2.5" y="24.5" width="2" height="2" fill="#2C313C"/>
-            <rect x="10" y="1" width="2" height="2" fill="#2C313C"/><rect x="14" y="0" width="2" height="2" fill="#2C313C"/><rect x="17" y="2" width="2" height="2" fill="#2C313C"/>
-            <rect x="10" y="5" width="2" height="2" fill="#2C313C"/><rect x="13" y="4" width="2" height="2" fill="#2C313C"/><rect x="16" y="6" width="2" height="2" fill="#2C313C"/>
-            <rect x="1" y="10" width="2" height="2" fill="#2C313C"/><rect x="4" y="12" width="2" height="2" fill="#2C313C"/><rect x="0" y="15" width="2" height="2" fill="#2C313C"/><rect x="5" y="16" width="2" height="2" fill="#2C313C"/><rect x="2" y="18" width="2" height="2" fill="#2C313C"/>
-            <rect x="9" y="9" width="3" height="3" fill="#2C313C"/><rect x="14" y="10" width="2" height="2" fill="#2C313C"/><rect x="18" y="9" width="2" height="2" fill="#2C313C"/>
-            <rect x="10" y="14" width="2" height="2" fill="#2C313C"/><rect x="13" y="15" width="3" height="2" fill="#2C313C"/><rect x="18" y="13" width="2" height="3" fill="#2C313C"/>
-            <rect x="9" y="18" width="2" height="2" fill="#2C313C"/><rect x="13" y="19" width="2" height="2" fill="#2C313C"/><rect x="17" y="18" width="3" height="2" fill="#2C313C"/>
-            <rect x="22" y="10" width="2" height="2" fill="#2C313C"/><rect x="25" y="12" width="2" height="2" fill="#2C313C"/><rect x="23" y="15" width="2" height="2" fill="#2C313C"/><rect x="26" y="17" width="2" height="2" fill="#2C313C"/>
-            <rect x="10" y="22" width="2" height="2" fill="#2C313C"/><rect x="13" y="24" width="2" height="2" fill="#2C313C"/><rect x="16" y="22" width="2" height="2" fill="#2C313C"/><rect x="19" y="25" width="2" height="2" fill="#2C313C"/><rect x="22" y="23" width="3" height="2" fill="#2C313C"/><rect x="26" y="26" width="2" height="2" fill="#2C313C"/><rect x="11" y="27" width="2" height="2" fill="#2C313C"/><rect x="23" y="27" width="2" height="2" fill="#2C313C"/>
-          </svg>
-          <div class="dc-lic">License No. <b>STL-00000</b> <span class="pill">● ACTIVE</span></div>
+        <div style="padding: 26px 26px 28px; border-bottom: 1px solid rgb(237, 237, 233);">
+          <div style="display: flex; height: 10px; border-radius: 2px; overflow: hidden; background: rgb(237, 237, 233);">
+            <div style="width: 82%; background: rgb(18, 97, 60); transform-origin: left center; animation: 900ms cubic-bezier(0.22, 1, 0.36, 1) 0s 1 normal both running om-grow;"></div>
+            <div style="width: 12%; background: rgb(201, 144, 42); transform-origin: left center; animation: 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms 1 normal both running om-grow;"></div>
+            <div style="width: 6%; background: rgb(163, 35, 26); transform-origin: left center; animation: 900ms cubic-bezier(0.22, 1, 0.36, 1) 240ms 1 normal both running om-grow;"></div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 16px;">
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(92, 93, 87);"><span style="width: 9px; height: 9px; border-radius: 50%; background: rgb(18, 97, 60);"></span>Licensed and current</span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(92, 93, 87);"><span style="width: 9px; height: 9px; border-radius: 50%; background: rgb(201, 144, 42);"></span>Expiring soon</span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: rgb(92, 93, 87);"><span style="width: 9px; height: 9px; border-radius: 50%; background: rgb(163, 35, 26); animation: 2.4s ease-in-out 0s infinite normal none running om-pulse;"></span>Needs attention</span>
+          </div>
         </div>
-        <div class="dc-foot">Managed by Your Company · yourcompany.com</div>
+        <div style="padding: 22px 26px 10px;">
+          <div style="font-size: 14px; font-weight: 600; color: rgb(92, 93, 87);">What your register keeps track of</div>
+        </div>
+        
+          <div data-row="" style="display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 15px 26px; border-top: 1px solid rgb(237, 237, 233);">
+            <span style="font-size: 15px; min-width: 0px;"><span class="sc-interp">A license expiring inside the next 30 days</span></span>
+            <span style="flex: 1 1 0%;"></span>
+            <span style="display: inline-block; font-size: 13px; font-weight: 500; color: rgb(138, 90, 0); background: rgb(247, 240, 222); padding: 4px 10px; border-radius: 3px; white-space: nowrap;"><span class="sc-interp">Expiring soon</span></span>
+          </div>
+        
+          <div data-row="" style="display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 15px 26px; border-top: 1px solid rgb(237, 237, 233);">
+            <span style="font-size: 15px; min-width: 0px;"><span class="sc-interp">A unit with no license on file yet</span></span>
+            <span style="flex: 1 1 0%;"></span>
+            <span style="display: inline-block; font-size: 13px; font-weight: 500; color: rgb(163, 35, 26); background: rgb(249, 233, 231); padding: 4px 10px; border-radius: 3px; white-space: nowrap;"><span class="sc-interp">Missing</span></span>
+          </div>
+        
+          <div data-row="" style="display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 15px 26px; border-top: 1px solid rgb(237, 237, 233);">
+            <span style="font-size: 15px; min-width: 0px;"><span class="sc-interp">A license that has already passed its expiry</span></span>
+            <span style="flex: 1 1 0%;"></span>
+            <span style="display: inline-block; font-size: 13px; font-weight: 500; color: rgb(163, 35, 26); background: rgb(249, 233, 231); padding: 4px 10px; border-radius: 3px; white-space: nowrap;"><span class="sc-interp">Expired</span></span>
+          </div>
+        
+          <div data-row="" style="display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 15px 26px; border-top: 1px solid rgb(237, 237, 233);">
+            <span style="font-size: 15px; min-width: 0px;"><span class="sc-interp">A document that needs replacing with a current copy</span></span>
+            <span style="flex: 1 1 0%;"></span>
+            <span style="display: inline-block; font-size: 13px; font-weight: 500; color: rgb(92, 93, 87); background: rgb(237, 237, 233); padding: 4px 10px; border-radius: 3px; white-space: nowrap;"><span class="sc-interp">Needs update</span></span>
+          </div>
+        
       </div>
     </div>
-  </div>
-</header>
+  </section>
 
-<div class="stats">
-  <div class="wrap row">
-    <div class="stat"><span class="n">1</span><span class="l">card per door, posted once</span></div>
-    <div class="stat mid"><span class="n">2 sec</span><span class="l">from scan to verified license</span></div>
-    <div class="stat"><span class="n serif" style="color:var(--slate)">0</span><span class="l">placards reprinted, ever again</span></div>
-  </div>
-</div>
-
-<section id="how">
-  <div class="wrap">
-    <h2>Three simple layers</h2>
-    <p class="sub">The only physical step, ever, is posting the card one time.</p>
-    <div class="cards">
-      <div class="card">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C05D4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="15.5" cy="12" r="1"/></svg>
-        <div class="tag">I · The Door</div><h3>Permanent QR</h3><p>Posted once at the entry. Never replaced, never reprinted.</p>
-      </div>
-      <div class="card">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C05D4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
-        <div class="tag">II · The Page</div><h3>Verification page</h3><p>Official, mobile-friendly, and always showing the current license.</p>
-      </div>
-      <div class="card">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C05D4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
-        <div class="tag">III · The Record</div><h3>License record</h3><p>Updated once per renewal, from one place, with the official PDF attached.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="companies" class="band">
-  <div class="wrap split">
-    <div>
-      <h2>For property managers</h2>
-      <p class="sub">Onboard your whole portfolio in one sitting.</p>
-      <ul class="check">
-        <li><b>Bulk onboarding</b> — a spreadsheet plus a folder of license PDFs sets up every unit at once.</li>
-        <li><b>No renaming, no filing</b> — each PDF is matched to its unit by the license number on the document.</li>
-        <li><b>Renewal is one upload</b> — drop the new PDF and the public page updates instantly.</li>
-        <li><b>Print-ready door cards</b> — generated for every unit, posted once.</li>
-      </ul>
-      <div class="cta-row">
-        <a class="btn btn-navy" href="login.html">Partner Sign-in</a>
-        <a class="btn btn-line" href="sample.html">See a Sample Dashboard</a>
+  <section id="how" style="border-bottom: 1px solid rgb(226, 226, 221); scroll-margin-top: 66px;">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 92px 24px;">
+      <h2 data-reveal="" style="margin: 0px; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.08; letter-spacing: -0.035em; font-weight: 600; max-width: 24ch;">Set it up once. Stop chasing it every year.</h2>
+      <p data-reveal="" style="margin: 16px 0px 0px; font-size: 16.5px; line-height: 1.55; color: rgb(92, 93, 87); max-width: 54ch;">Four steps, and the first two are the only ones that take your time.</p>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 44px 40px; margin-top: 56px;">
+        <div data-reveal="" style="min-width: 0px;">
+          <div style="font-size: 15px; font-weight: 600; color: rgb(201, 201, 195); letter-spacing: -0.01em; padding-bottom: 12px; border-bottom: 1px solid rgb(226, 226, 221);">01</div>
+          <h3 style="margin: 12px 0px 9px; font-size: 19px; font-weight: 600; letter-spacing: -0.025em;">Send us your list</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">A spreadsheet or an export of your units and their addresses, so every license has a property to sit against.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <div style="font-size: 15px; font-weight: 600; color: rgb(201, 201, 195); letter-spacing: -0.01em; padding-bottom: 12px; border-bottom: 1px solid rgb(226, 226, 221);">02</div>
+          <h3 style="margin: 12px 0px 9px; font-size: 19px; font-weight: 600; letter-spacing: -0.025em;">Upload the licenses</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Add each permit or license you already hold, with its number and expiry. Once it is in, you never hunt for that document again.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <div style="font-size: 15px; font-weight: 600; color: rgb(201, 201, 195); letter-spacing: -0.01em; padding-bottom: 12px; border-bottom: 1px solid rgb(226, 226, 221);">03</div>
+          <h3 style="margin: 12px 0px 9px; font-size: 19px; font-weight: 600; letter-spacing: -0.025em;">We track the dates</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Every expiry is watched, and renewals surface well in advance with the unit and owner attached, so nothing lapses because nobody noticed.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <div style="font-size: 15px; font-weight: 600; color: rgb(201, 201, 195); letter-spacing: -0.01em; padding-bottom: 12px; border-bottom: 1px solid rgb(226, 226, 221);">04</div>
+          <h3 style="margin: 12px 0px 9px; font-size: 19px; font-weight: 600; letter-spacing: -0.025em;">Share it in one link</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Send a town, an owner, or a platform a link to what they need. No email threads, no scanned attachments.</p>
+        </div>
       </div>
     </div>
-    <div id="towns">
-      <h2>For towns</h2>
-      <p class="sub">A displayed-license standard that enforces itself.</p>
-      <ul class="check">
-        <li><b>Instant checks</b> — a code officer scans or looks up a unit and sees the current status immediately.</li>
-        <li><b>Consistent everywhere</b> — every unit displays the same official format, always current.</li>
-        <li><b>Open to everyone</b> — any management company or self-managing owner can plug in.</li>
-        <li><b>Low or no cost to the town</b> — and no paper or plastic thrown away every year.</li>
-      </ul>
-      <a class="btn btn-navy" href="https://strlicenses.github.io/licenses/label.html?id=coldstream-townhome-15" target="_blank" rel="noopener">See a Door Card</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<div class="pricing" id="pricing">
-  <div class="wrap inner">
-    <div>
-      <div class="pk">Simple per-unit pricing</div>
-      <div class="tiers">
-        <div class="tier"><div class="r">1–49 units</div><div class="p">$13.95</div><div class="u">per unit / year</div></div>
-        <div class="tier hot"><div class="r">50–99 units</div><div class="p">$11.95</div><div class="u">per unit / year</div></div>
-        <div class="tier"><div class="r">100+ units</div><div class="p">$9.95</div><div class="u">per unit / year</div></div>
+  <section style="background: rgb(17, 17, 16); color: rgb(245, 245, 242);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 92px 24px;">
+      <h2 data-reveal="" style="margin: 0px; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.08; letter-spacing: -0.035em; font-weight: 600; max-width: 22ch;">Same job. A lot less of it.</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 0px 56px; margin-top: 52px;">
+        <div data-reveal="left" style="min-width: 0px;">
+          <div style="font-size: 14px; font-weight: 600; color: rgb(154, 155, 148); padding-bottom: 14px; border-bottom: 1px solid rgb(44, 44, 41);">Today</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; color: rgb(154, 155, 148);">Licenses live in folders, inboxes, and someone's memory</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; color: rgb(154, 155, 148);">Renewal dates sit in a spreadsheet nobody fully trusts</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; color: rgb(154, 155, 148);">Proving a unit is licensed means digging for the document</div>
+          <div style="padding: 16px 0px; font-size: 16px; line-height: 1.5; color: rgb(154, 155, 148);">The same work repeats every single year</div>
+        </div>
+        <div data-reveal="right" style="min-width: 0px;">
+          <div style="font-size: 14px; font-weight: 600; color: rgb(169, 182, 255); padding-bottom: 14px; border-bottom: 1px solid rgb(44, 44, 41);">With YourSTRL</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; font-weight: 500;">One register holding every license you have</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; font-weight: 500;">Renewals surface well before they lapse</div>
+          <div style="padding: 16px 0px; border-bottom: 1px solid rgb(30, 30, 28); font-size: 16px; line-height: 1.5; font-weight: 500;">A town can check a unit without emailing you</div>
+          <div style="padding: 16px 0px; font-size: 16px; line-height: 1.5; font-weight: 500;">Set up once, not rebuilt every renewal season</div>
+        </div>
       </div>
-      <div class="note">One rate for your whole portfolio, based on its size. Every unit gets its verification page, permanent QR door card, and renewal reminders at 90, 30, and 7 days. No setup fees, no per-scan charges.</div>
     </div>
-    <a class="btn btn-terra cta" href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request">Request Access</a>
-  </div>
-</div>
+  </section>
 
-<footer>
-  <div class="wrap foot-inner">
-    <div><b>YourSTRL</b> · Your STR License, verified.</div>
-    <div><a href="mailto:admin@yourstrl.com">admin@yourstrl.com</a></div>
-  </div>
-</footer>
+  <section id="companies" style="border-bottom: 1px solid rgb(226, 226, 221); scroll-margin-top: 66px;">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 92px 24px;">
+      <h2 data-reveal="" style="margin: 0px 0px 44px; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.08; letter-spacing: -0.035em; font-weight: 600;">Two sides of the same record</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px;">
+        <div data-reveal="scale" data-hoverlift="" style="background: rgb(255, 255, 255); border: 1px solid rgb(226, 226, 221); border-radius: 4px; padding: 34px 32px; min-width: 0px;">
+          <h3 style="margin: 0px; font-size: 21px; font-weight: 600; letter-spacing: -0.03em;">For property managers</h3>
+          <p style="margin: 12px 0px 26px; font-size: 16px; line-height: 1.55; color: rgb(92, 93, 87); max-width: 40ch;">Stop spending weeks a year on paperwork you already have somewhere.</p>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Every license in one register, with its number and expiry</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Renewal reminders sent to the owner or agent responsible</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Share a unit's license with a town or platform in one link</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">New units flagged until their license is on file</span></span>
+            </div>
+          
+        </div>
+        <div data-reveal="scale" data-hoverlift="" style="background: rgb(255, 255, 255); border: 1px solid rgb(226, 226, 221); border-radius: 4px; padding: 34px 32px; min-width: 0px;">
+          <h3 id="towns" style="margin: 0px; font-size: 21px; font-weight: 600; letter-spacing: -0.03em; scroll-margin-top: 90px;">For towns and counties</h3>
+          <p style="margin: 12px 0px 26px; font-size: 16px; line-height: 1.55; color: rgb(92, 93, 87); max-width: 40ch;">See a manager's whole portfolio in your town in one view, kept current by them.</p>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">See a manager's whole portfolio in your town in one view</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Check a full list at once instead of unit by unit</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Owner and agent contacts attached to each unit</span></span>
+            </div>
+          
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0px; border-top: 1px solid rgb(237, 237, 233);">
+              <span style="color: rgb(18, 97, 60); font-size: 14px; line-height: 1.6; font-weight: 600;">✓</span>
+              <span style="font-size: 15px; line-height: 1.6; color: rgb(17, 17, 16);"><span class="sc-interp">Fewer calls and emails chasing operators for documents</span></span>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid rgb(226, 226, 221);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 88px 24px;">
+      <h2 data-reveal="" style="margin: 0px 0px 8px; font-size: clamp(24px, 2.8vw, 31px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600;">Where we are today</h2>
+      <p data-reveal="" style="margin: 0px; font-size: 16.5px; color: rgb(92, 93, 87); max-width: 56ch; line-height: 1.55;">We are early, and we would rather say so than oversell it.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 34px 40px; margin-top: 44px;">
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Checked town by town</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Tell us where you operate and we will confirm what your towns accept before you commit to anything.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Start with a handful of units</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Try it on part of a portfolio or one district first. Expand only once it earns it.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Shaped by the people using it</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">We are designing this alongside managers and town staff, and their notes decide what we build next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" style="border-bottom: 1px solid rgb(226, 226, 221); scroll-margin-top: 66px;">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 88px 24px;">
+      <h2 data-reveal="" style="margin: 0px 0px 40px; font-size: clamp(24px, 2.8vw, 31px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600;">Straight answers on your data</h2>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 34px 40px;">
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Your records stay yours</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">We store your licenses so you and the people you share them with can find them. Export everything or ask us to delete it at any point.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Clear access controls</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Separate roles for staff, owners, and agents, so each person sees only the units that are theirs.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Evidence you can show</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Every license is stored with its number, issue date, and expiry, so a question about a unit has a documented answer.</p>
+        </div>
+        <div data-reveal="" style="min-width: 0px;">
+          <h3 style="margin: 0px 0px 8px; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em;">Security review welcome</h3>
+          <p style="margin: 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">Send us your questionnaire. We will answer it ourselves and walk your team through how data is stored.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="border-bottom: 1px solid rgb(226, 226, 221); scroll-margin-top: 66px;">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 92px 24px;">
+      <h2 data-reveal="" style="margin: 0px 0px 8px; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.08; letter-spacing: -0.035em; font-weight: 600;">Pricing</h2>
+      <p data-reveal="" style="margin: 0px; font-size: 16.5px; color: rgb(92, 93, 87); max-width: 54ch; line-height: 1.55;">Per unit, per year. The more units you keep on file, the lower the rate.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 48px;">
+        <div data-reveal="scale" data-hoverlift="" style="background: rgb(255, 255, 255); border: 1px solid rgb(226, 226, 221); border-radius: 4px; padding: 32px; min-width: 0px;">
+          <div style="font-size: 14px; font-weight: 600; color: rgb(92, 93, 87);">1 to 24 units</div>
+          <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 14px;">
+            <span style="font-size: 38px; font-weight: 600; letter-spacing: -0.04em; line-height: 1;">$13.95</span>
+            <span style="font-size: 15px; color: rgb(106, 107, 100);">per unit</span>
+          </div>
+          <p style="margin: 16px 0px 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">For a single company getting its licenses in one place.</p>
+        </div>
+        <div data-reveal="scale" data-hoverlift="" style="background: rgb(255, 255, 255); border: 1px solid rgb(17, 17, 16); border-radius: 4px; padding: 32px; min-width: 0px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+            <span style="font-size: 14px; font-weight: 600; color: rgb(92, 93, 87);">25 to 99 units</span>
+            <span style="font-size: 12.5px; font-weight: 500; color: rgb(27, 52, 196); background: rgb(236, 239, 252); padding: 3px 8px; border-radius: 3px;">Most common</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 14px;">
+            <span style="font-size: 38px; font-weight: 600; letter-spacing: -0.04em; line-height: 1;">$11.95</span>
+            <span style="font-size: 15px; color: rgb(106, 107, 100);">per unit</span>
+          </div>
+          <p style="margin: 16px 0px 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">For portfolios spread across more than one town.</p>
+        </div>
+        <div data-reveal="scale" data-hoverlift="" style="background: rgb(255, 255, 255); border: 1px solid rgb(226, 226, 221); border-radius: 4px; padding: 32px; min-width: 0px;">
+          <div style="font-size: 14px; font-weight: 600; color: rgb(92, 93, 87);">100 units and up</div>
+          <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 14px;">
+            <span style="font-size: 38px; font-weight: 600; letter-spacing: -0.04em; line-height: 1;">$9.95</span>
+            <span style="font-size: 15px; color: rgb(106, 107, 100);">per unit</span>
+          </div>
+          <p style="margin: 16px 0px 0px; font-size: 15px; line-height: 1.6; color: rgb(92, 93, 87);">For larger operators who want one register for everything.</p>
+        </div>
+      </div>
+      <p data-reveal="" style="margin: 28px 0px 0px; font-size: 15px; color: rgb(92, 93, 87);">Not sure which band you land in? <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20pricing%20question">Ask us</a>.</p>
+    </div>
+  </section>
+
+  <section style="border-bottom: 1px solid rgb(226, 226, 221);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 92px 24px; text-align: center;">
+      <h2 data-reveal="" style="margin: 0px auto; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.05; letter-spacing: -0.04em; font-weight: 600; max-width: 22ch;">See your licenses in one place.</h2>
+      <p data-reveal="" style="margin: 18px auto 0px; font-size: 16.5px; color: rgb(92, 93, 87); max-width: 52ch; line-height: 1.6;">Thirty minutes, no preparation needed. Bring a few units and we will set them up with you on the call.</p>
+      <div data-reveal="" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; margin-top: 30px;">
+        <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" class="scp1" style="font-size: 15px; font-weight: 500; background: rgb(17, 17, 16); color: rgb(245, 245, 242); padding: 14px 24px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; text-align: center; transition: background 180ms;">Request access</a>
+        <a href="mailto:admin@yourstrl.com?subject=Question%20about%20YourSTRL" class="scp2" style="font-size: 15px; font-weight: 500; border: 1px solid rgb(201, 201, 195); color: rgb(17, 17, 16); padding: 14px 24px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; text-align: center; transition: border-color 180ms;">Send us a question</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div style="max-width: 1120px; margin: 0px auto; padding: 52px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 32px;">
+      <div style="min-width: 0px;">
+        <div style="font-weight: 700; font-size: 17px; letter-spacing: -0.035em; margin-bottom: 10px;">YourSTRL</div>
+        <p style="margin: 0px; font-size: 13.5px; color: rgb(106, 107, 100); line-height: 1.6; max-width: 30ch;">Short-term rental license verification.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; min-width: 0px;">
+        <span style="font-size: 13.5px; font-weight: 600; margin-bottom: 2px;">Product</span>
+        <a href="#how" style="font-size: 14px; color: rgb(92, 93, 87);">How it works</a>
+        <a href="#companies" style="font-size: 14px; color: rgb(92, 93, 87);">For companies</a>
+        <a href="#towns" style="font-size: 14px; color: rgb(92, 93, 87);">For towns</a>
+        <a href="#pricing" style="font-size: 14px; color: rgb(92, 93, 87);">Pricing</a>
+        <a href="sample.html" style="font-size: 14px; color: rgb(92, 93, 87);">Sample dashboard</a>
+        <a href="#trust" style="font-size: 14px; color: rgb(92, 93, 87);">Your data</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; min-width: 0px;">
+        <span style="font-size: 13.5px; font-weight: 600; margin-bottom: 2px;">Company</span>
+        <a href="about.html" style="font-size: 14px; color: rgb(92, 93, 87);">About</a>
+        <a href="mailto:admin@yourstrl.com" style="font-size: 14px; color: rgb(92, 93, 87);">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; min-width: 0px;">
+        <span style="font-size: 13.5px; font-weight: 600; margin-bottom: 2px;">Get in touch</span>
+        <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" style="font-size: 14px; color: rgb(92, 93, 87);">Request access</a>
+        <a href="login.html" style="font-size: 14px; color: rgb(92, 93, 87);">Sign in</a>
+        <a href="login.html" style="font-size: 14px; color: rgb(92, 93, 87);">Partner sign-in</a>
+        <a href="https://verify.yourstrl.com/verify.html?id=coldstream-townhome-15" style="font-size: 14px; color: rgb(92, 93, 87);">Live page example</a>
+        <a href="https://verify.yourstrl.com/label.html?id=coldstream-townhome-15" style="font-size: 14px; color: rgb(92, 93, 87);">Door card example</a>
+        <a href="mailto:admin@yourstrl.com" style="font-size: 14px; color: rgb(92, 93, 87);">admin@yourstrl.com</a>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgb(226, 226, 221);">
+      <div style="max-width: 1120px; margin: 0px auto; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; font-size: 13px; color: rgb(106, 107, 100);">
+        <span>© 2026 YourSTRL, Inc.</span>
+        <span>Privacy · Terms · Accessibility</span>
+      </div>
+    </div>
+  </footer></div></div></div>
+
+
 
 <script>
 // If a Supabase auth callback lands here (magic link fallback), hand it to the portal.
 if (location.hash.includes('access_token') || location.hash.includes('type=magiclink') || location.hash.includes('error_code')) {
   location.replace('portal.html' + location.hash);
 }
-</script>
-</body>
-</html>
+</script></body></html>
