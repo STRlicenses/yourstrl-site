@@ -12,6 +12,21 @@
   a { color:#1B34C4; text-decoration:none; transition: color 160ms ease; }
   a:hover { color:#111110; }
   ::selection { background:#1B34C4; color:#fff; }
+
+  /* responsive nav */
+  [data-menu] { display:none; }
+  @media (max-width: 900px) {
+    [data-desknav] { display:none !important; }
+    [data-deskcta] { display:none !important; }
+    [data-menu] { display:block; margin-left:auto; position:relative; }
+    [data-menu] summary { list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; font-size:14.5px; font-weight:500; color:#111110; border:1px solid #C9C9C3; border-radius:3px; padding:9px 13px; }
+    [data-menu] summary::-webkit-details-marker { display:none; }
+    [data-menu][open] summary { border-color:#111110; }
+    [data-menu] > div { position:absolute; right:0; top:calc(100% + 10px); min-width:224px; background:#FFFFFF; border:1px solid #C9C9C3; border-radius:4px; padding:8px; display:flex; flex-direction:column; gap:2px; box-shadow:0 18px 40px -18px rgba(17,17,16,0.32); animation: om-drop 180ms ease both; }
+    [data-menu] > div a { font-size:15px; color:#111110; padding:10px 12px; border-radius:3px; }
+    [data-menu] > div a:hover { background:#F5F5F2; }
+    [data-menu] > div a[data-primary] { background:#111110; color:#F5F5F2; margin-top:6px; font-weight:500; }
+  }
   @keyframes om-rise { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
   @keyframes om-rise-l { from { opacity:0; transform:translateX(-22px); } to { opacity:1; transform:none; } }
   @keyframes om-rise-r { from { opacity:0; transform:translateX(22px); } to { opacity:1; transform:none; } }
@@ -50,7 +65,7 @@
   <header style="position: sticky; top: 0px; z-index: 50; background: rgba(245, 245, 242, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgb(226, 226, 221);">
     <div style="max-width: 1120px; margin: 0px auto; padding: 0px 24px; height: 66px; display: flex; align-items: center; gap: 34px;">
       <span style="font-weight: 700; font-size: 18px; letter-spacing: -0.035em;">YourSTRL</span>
-      <nav style="display: flex; gap: 24px; font-size: 14.5px; color: rgb(92, 93, 87);">
+      <nav data-desknav="" style="display: flex; gap: 24px; font-size: 14.5px; color: rgb(92, 93, 87);">
         <a href="#how" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">How it works</a>
         <a href="#companies" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">Companies</a>
         <a href="#towns" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">Towns</a>
@@ -58,10 +73,24 @@
         <a href="about.html" data-underline="" class="scp0" style="color: rgb(92, 93, 87); transition: color 160ms;">About</a>
       </nav>
       <div style="flex: 1 1 0%;"></div>
-      <div style="display: flex; align-items: center; gap: 20px;">
+      <div data-deskcta="" style="display: flex; align-items: center; gap: 20px;">
         <a href="login.html" class="scp0" style="font-size: 14.5px; color: rgb(92, 93, 87); transition: color 160ms;">Sign in</a>
         <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" class="scp1" style="font-size: 14.5px; font-weight: 500; background: rgb(17, 17, 16); color: rgb(245, 245, 242); padding: 10px 17px; border-radius: 3px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; transition: background 180ms;">Request access</a>
       </div>
+        <details data-menu="">
+          <summary>Menu
+            <svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><path d="M1 3.5h11M1 6.5h11M1 9.5h11" stroke="currentColor" stroke-width="1.4" fill="none"></path></svg>
+          </summary>
+          <div>
+            <a href="#how">How it works</a>
+            <a href="#companies">Companies</a>
+            <a href="#towns">Towns</a>
+            <a href="#pricing">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="login.html">Sign in</a>
+            <a href="mailto:admin@yourstrl.com?subject=YourSTRL%20access%20request" data-primary="">Request access</a>
+          </div>
+        </details>
     </div>
   </header>
 
